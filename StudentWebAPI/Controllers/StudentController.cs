@@ -16,6 +16,7 @@ namespace StudentWebAPI.Controllers
         }
 
         #region GET Methods
+        [Route("api/student")]
         [HttpGet]
         public IHttpActionResult GetAllStudents()
         {
@@ -25,13 +26,17 @@ namespace StudentWebAPI.Controllers
             return Ok(obj);
         }
 
+        [Route("api/student/GetStudentsById")]
         [HttpGet]
-        public IHttpActionResult GetAllStudents(int id)
+        public IHttpActionResult GetStudentsById(Student param)
         {
-            var obj = StudentsData.getStudentById(id);
-
-
-            return Ok(obj);
+            Student obj = new Student();
+            obj.id = param.id;
+            if (obj.id <= 0)
+                return BadRequest();
+            var temp = StudentsData.getStudentById(obj);
+            
+            return Ok(temp);
         }
         #endregion
 
@@ -57,12 +62,14 @@ namespace StudentWebAPI.Controllers
 
         #region DELETE Methods
         [HttpDelete]
-        public IHttpActionResult Delete(int id)
+        public IHttpActionResult Delete(Student param)
         {
-            if (id <= 0)
+            Student obj = new Student();
+            obj.id = param.id;
+            if (obj.id <= 0)
                 return BadRequest();
-            var obj = StudentsData.deleteStudent(id);
-            return Ok(obj);
+            var temp = StudentsData.deleteStudent(obj);
+            return Ok(temp);
         }
         #endregion
 
