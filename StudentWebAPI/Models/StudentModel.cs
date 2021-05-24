@@ -23,4 +23,10 @@ namespace StudentWebAPI.Models
         public int studentId { get; set; }        
         public int marks { get; set; }
     }
+
+    public class Users
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+    }
 }

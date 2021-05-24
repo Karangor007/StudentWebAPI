@@ -552,4 +552,34 @@ namespace StudentWebAPI.Models
         }
         #endregion
     }
+
+    public class AuthenticationUser
+    {
+        public static bool checkAuthUser(string username,string password)
+        {
+            bool flag = false;
+            SqlConnection conn = new SqlConnection();
+            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Conn"].ConnectionString);
+            Users obj = new Users();
+            obj.username = username.Trim();
+            obj.password = password.Trim();
+
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+
+            string query = "select * from mst_user where username='" + obj.username + "' and password='"+obj.password+"'";
+            SqlCommand com = new SqlCommand(query, conn);
+            int count = Convert.ToInt32(com.ExecuteScalar());
+            if (count > 0)
+            {
+                flag = true;
+            }
+            conn.Close();
+
+            return flag;
+
+        }
+    }
 }

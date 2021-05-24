@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using StudentWebAPI.Models;
+using StudentWebAPI.Auth;
 
 namespace StudentWebAPI.Controllers
 {
@@ -17,6 +18,7 @@ namespace StudentWebAPI.Controllers
 
         #region GET Methods
         [Route("api/marks")]
+        [BasicAuth]
         [HttpGet]
         public IHttpActionResult GetAllMarks()
         {
@@ -27,6 +29,7 @@ namespace StudentWebAPI.Controllers
         }
 
         [Route("api/marks/GetMarksByStudentId")]
+        [BasicAuth]
         [HttpGet]
         public IHttpActionResult GetMarksByStudentId(Marks param)
         {
@@ -39,10 +42,21 @@ namespace StudentWebAPI.Controllers
 
             return Ok(temp);
         }
+
+        [Route("api/marks/Auth")]
+        [BasicAuth]
+        [HttpGet]
+        public IHttpActionResult GetAuth()
+        {
+            var temp = "Success";
+            return Ok(temp);
+        }
+
         #endregion
 
         #region POST Methods
         [Route("api/marks/PostMarksByStudentId")]
+        [BasicAuth]
         [HttpPost]
         public IHttpActionResult PostMarks(Marks param)
         {
@@ -57,6 +71,7 @@ namespace StudentWebAPI.Controllers
 
         #region PUT Methods
         [Route("api/marks/UpdateMarksByStudentId")]
+        [BasicAuth]
         [HttpPut]
         public IHttpActionResult PutMarks(Marks param)
         {
@@ -71,6 +86,7 @@ namespace StudentWebAPI.Controllers
 
         #region DELETE Methods
         [Route("api/marks/DeleteMarksById")]
+        [BasicAuth]
         [HttpDelete]
         public IHttpActionResult DeleteMarks(Marks param)
         {
